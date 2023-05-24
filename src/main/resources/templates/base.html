@@ -1,0 +1,32 @@
+<div th:fragment="nav">
+<meta charset="utf-8">
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark sombreado" >
+      <a class="navbar-brand text-white marg" href="#">Vistoria Online</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+        <ul class="navbar-nav w-100 justify-content-between pl-5 pr-5 navbarposition">
+          <li class="nav-item dropdown ">
+            <a class="nav-link text-white" href="usuario" role="button">Usuário</a>
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white" href="cliente"role="button">Clientes
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white" href="/perform_logout"  role="button">Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    </div>
+    
+    
+    <div th:fragment="scripts">
+    	<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+	</div>

@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/vo/css/style.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap"
+	rel="stylesheet">
+<title>Upload</title>
+<style>
+    	@media only screen and (max-width: 600px) {
+    		.card.text-center{
+    			width: 100% !important;
+    		}
+    	}
+    	
+    	@media only screen and (min-width: 600px) {
+    		.card.text-center{
+    			width: 40% !important;
+    		}
+    	}
+    	
+    
+    </style>
+</head>
+
+<body class="bgcolor">
+	<div class="container">
+		<div class="row justify-content-around mt-5">
+				 <div th:each="imagem : ${listaImagens}" class="card text-center fontpadrao3 mt-3">
+					<img th:src="${'data:image/png;base64, '+imagem.imagem_padrao}" th:id="${imagem.idTipo}"
+						class="imguniv card-img-top" alt="...">
+					<div class="card-body">
+						<h3 class="card-title" th:text="${imagem.descricao}"></h3>
+						<input type="hidden" id="idTipoVal" th:value="${imagem.idTipo}">
+						<div class="card bg-success" th:style="${imagem.statusId != 1 && imagem.statusId != 3 ? 'display:block' : 'display:none'}">
+							<span id="{imagem.idTipo + 'en'}" class="en"> Enviado</span>
+							<span id="{imagem.idTipo + 're'}" class="re" style="display: none;"> Reenviar</span>
+						</div>
+						<div class="form-group input-enviar" th:style="${imagem.statusId == 1 || imagem.statusId == 3 ? 'display:block' : 'display:none'}">
+							<input th:id="${imagem.idTipo}" type="file" capture="user" accept="image/*" class="form1-control-file upload-arquivo">
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="row justify-content-around mt-5">
+			<input type="button" value="Finalizar" class="form-control btn btn-success" onclick="finalizar()">
+		</div>
+	</div>
+	<div class="modal fade" id="modalStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    	<div class="modal-dialog modal-xl" id="modalStatusLink">
+    		<div class="modal-content">
+    			<div class="modal-body text-center">
+    				<div class="row justify-content-center"> 
+    					<button type="button" id="confirm" class="btn btn-success" onclick="confirmar()">Confirmar</button>
+    					<button type="button" id="cancel" class="btn btn-danger" onclick="cancelar()">Cancelar</button>
+    					<div style="display: none" id="loading" class="spinner-border text-primary" role="status">
+						  <span class="sr-only">Loading...</span>
+						</div>
+    				</div>
+    				<div class="container">
+    					<div class="row justify-content-center">
+    						<div class="col">
+    							<img class="imageWidth mt-3" id="previewModal"/>
+    						</div>
+    						<div class="col">
+    							<img class="imageWidth mt-3" id="comparaPreview"/>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</body>
+
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+	crossorigin="anonymous"></script>
+	
+	
+	<script type="text/javascript">
+	var idTipo;
+	
+	function finalizar(){
+		
+		if($(".input-enviar:visible").length){
+			alert("Faltam algumas imagens! Complete para finalizar.");
+			return;
+		}
+		
+		document.location.reload(true);		
+	}
+	
+	$(".card-enviar").mouseover(function() {
+		$(this).css('cursor','pointer');
+		$(e).find("#"+$('#idTipoVal').val()+"en").hide();
+		$(e).find("#"+$('#idTipoVal').val()+"re").show();
+	});  
+	
+	$(".card-enviar").mouseout(function() {
+		$(this).css('cursor','default');
+		$(e).find("#"+$('#idTipoVal').val()+"re").hide();
+		$(e).find("#"+$('#idTipoVal').val()+"en").show();
+	});  
+	
+	function trocaModal(e){
+		$(e).find("#"+$('#idTipoVal').val()+"re").hide();
+		$(e).find("#"+$('#idTipoVal').val()+"en").show();
+		$(e).closest(".card-enviar").hide();
+		$(e).closest(".card-body").find(".form-group").show();
+	}
+	var idTipo;
+	var token;
+	$( document ).ready(function() {
+		const urlParams = new URLSearchParams(window.location.search);
+		token = urlParams.get('tkn');
+	});
+	
+	$('input[type="file"]').change(function(e) {
+		idTipo = e.target.id
+		var reader   = new FileReader();
+		if (e.target.files.length > 0) {
+			reader.readAsDataURL(e.target.files[0]);
+			reader.onload = function (evt) {
+				idTipo = e.target.id;
+				uploadImage(reader.result);
+			}
+		}
+	});
+	
+	var dto = {};
+	
+	function uploadImage(bs64){
+		
+		var base64Array = bs64.split(',');
+		
+		dto.idTipo = idTipo;
+		dto.token = token;
+		dto.extensao = base64Array[0].substring(base64Array[0].indexOf("/")+1, base64Array[0].indexOf(";"));
+		dto.image64 = base64Array[1];
+		
+		$('#previewModal').attr("src", "data:image/"+dto.extensao+";base64, "+dto.image64);
+		$('#comparaPreview').attr("src", $('#'+idTipo).attr('src'));
+		
+		$("#modalStatus").modal('show')
+	}
+	
+	function cancelar(){
+		$("#modalStatus").modal('hide');
+	}
+	
+	function confirmar(){
+		$("#loading").show();
+		$("#confirm").hide();
+		$.ajax({
+		    url : window.location.href.substring(0, window.location.href.indexOf("?"))+"/upload",
+		    dataType : "json",
+		    type: 'post',
+		    data: JSON.stringify(dto),
+		    contentType: 'application/json',
+		    success : function(data){
+		    	$('#'+idTipo).parent().hide();
+		    	$('#'+idTipo).parent().parent().find(".card-enviar").show();
+		    	$('#'+idTipo).val("");
+		    	dto = {}
+		    	$("#modalStatus").modal('hide')
+		    	$("#loading").hide();
+				$("#confirm").show();
+		    },
+		    error: function (err) {
+		    	$("#loading").hide();
+				$("#confirm").show();
+		    	console.log(err.mensagem[0]);
+		    	alert("Erro ao salvar imagem, tente novamente!");
+		    },
+		});
+	}
+	
+	$('#myModal').on('hide.bs.modal', function (e) {
+		dto = {}
+		$('#previewModal').attr("src", "");
+	});
+	</script>
+</html>

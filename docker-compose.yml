@@ -1,0 +1,28 @@
+version: "3"
+services:
+ dev:
+  container_name: vistoria-dev
+  build:
+   context: ./
+   dockerfile: ./Dockerfile
+  image: vistoria-dev
+  ports:
+   - '9000:8080'
+  volumes:
+   - ./imgs/:/home/vistoria-online/imgs
+  environment:
+   - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5005 -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+   - PROFILE=dev
+ prod:
+  container_name: vistoria-prod
+  build:
+   context: ./
+   dockerfile: ./Dockerfile
+  image: vistoria-prod
+  ports:
+   - '9000:8080'
+  volumes:
+   - ./imgs/:/home/vistoria-online/imgs
+  environment:
+   - ADDITIONAL_OPTS=-Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+   - PROFILE=prod

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="vo/css/style.css">
+  </head>
+
+    <body id="fundo">
+<main>
+
+
+		
+			<h1 class="text-center pt-1 fontlogin" > Vistoria Online </h1>
+        <div class="card" id="telalogin">
+            <div class="card-body">
+					<form th:action="@{/perform_login}" class="card-body" method="post">
+						<div class="form-group">
+							<label for="email" value="email">Login</label> 
+							<input type="text" class="form-control form-control-user" id="email" aria-describedby="emailHelp" placeholder="Email" name="email">
+						</div>
+						<div class="form-group">
+							<label for="password" value="password">Senha</label> 
+							<input type="password" class="form-control form-control-user" id="password" placeholder="Senha" name="password">
+						</div>
+						<div class="form-check"></div>
+						<button type="submit" class="btn btn-success btn-block">Entrar</button>
+					</form>
+
+				</div>
+			</div>
+
+			<div class="card" style="display: none;" id="card-error">
+				<div class="card-body">
+					<label> Senha/Usuário incorreto.</label>
+				</div>
+			</div>
+		
+</main>
+		<div th:replace="~{base::scripts}"></div>
+    	<script type="text/javascript">
+    $(function(){
+      var campo = $("#username");
+      campo.keyup(function(e){
+        e.preventDefault();
+        campo.val($(this).val().toLowerCase());
+      });
+    });
+    
+    $(document).ready(function() {
+    	if(window.location.href.indexOf("error=true") >= 0)
+			$("#card-error").show();
+    });
+
+    </script>
+    </body>
+    </html>

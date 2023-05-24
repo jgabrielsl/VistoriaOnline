@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="modal-content">
+          <div class="modal-header">
+						<h5 class="modal-title" id="tituloModal">Progresso do Cliente</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          
+          		<section id="feedbackSec" class="text-center fontpadrao" style="display: none;">
+            		<div class="form-group" id="feedback">
+	            	
+	            	
+	            	</div>
+	            </section>
+          
+            	<label for="statusLink" id="statusLinkLb" class="col-form-label">Link: </label>
+            	<div class="form-group text-center fontpadrao">
+            	
+	            <label for="link" id="feedText" class="col-form-label link-url"></label>
+            	<input type="text" disabled id="link" th:value="${link}" class="form-control">
+	            <input type="hidden" id="telefoneCli" value="" class="telNumber">
+	            <input type="hidden" id="nomeCli" value="" class="cliNome">
+            	<!-- '\',\''  +  ${telefoneCli} +  '\' -->
+            	<button th:attr="onclick=|zapWeb('${nomeCli}','${telefoneCli}','${link}')|"  class="btn btn-info mb-1 d-none d-md-inline">WhatsApp - Web</button>
+	            <button th:attr="onclick=|zapApp('${nomeCli}','${telefoneCli}','${link}')|" class="btn btn-success mb-1">WhatsApp - App</button>
+            	</div>
+				
+				
+				            
+            	<div class="row justify-content-around mt-5">
+			<div th:each="imagem : ${imagens}" class="card text-center fontpadrao3 mt-3">
+				<img th:id="${'img'+imagem.idImg}" th:if="${imagem.statusId == 2 || imagem.statusId == 4}" th:src="${'/cadastro/cliente/progresso/imagem/'+imagem.idImg}" 
+					class="imguniv card-img-top" alt="...">
+				<div class="card-body">
+					<h3 class="card-title" th:text="${imagem.descricao}"></h3>
+					<h4 class="card-title" th:id="${'status'+imagem.idImg}" th:text="${imagem.status}"></h4>
+				</div>
+				  <div class="card-footer text-muted" th:id="${'aprovacao'+imagem.idImg}" th:if="${imagem.statusId == 2}">
+				    <a href="#" th:attr="onclick=|aprovar('${imagem.idImg}', event)|" class="btn btn-success">Aprovar</a>
+				    <a href="#" th:attr="onclick=|reprovar('${imagem.idImg}', event)|" class="btn btn-danger">Reprovar</a>
+				  </div>
+			</div>
+		</div>
+		<div class="row justify-content-around mt-5">
+			<div class="form-group">
+				<a th:href="@{'/cadastro/cliente/download/'+${id}}">
+            		<input type="button" value="Download Imagens" class="form-control">
+            	</a>
+            </div>
+		</div>
+        </div>        
+      </div>
+</body>
+</html>

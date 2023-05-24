@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="/vo/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <style>
+    	@media only screen and (max-width: 600px) {
+    		.card.text-center{
+    			width: 100% !important;
+    		}
+    	}
+    	
+    	@media only screen and (min-width: 600px) {
+    		.card.text-center{
+    			width: 40% !important;
+    		}
+    	}
+    	
+    
+    </style>
+    <title>Cadastro</title>
+  </head>
+  
+  <body class="bgcolor">
+    <div th:replace="~{base::nav}"></div>
+
+    <h1>Cadastro de Cliente</h1>
+  <h2>
+  <div class="d-flex justify-content-between">
+	    <button type="button" id="cadastrarAct" class="btn btn-success" data-toggle="modal" data-target="#Modalcadastro" th:object="${clientes}">
+	      Cadastrar Cliente
+	    </button>
+	    
+	    <div class="col-sm-3">
+			<form action="#" method="post">
+		    	<input type="text" name="search" id="search" class="search" placeholder="Buscar por nome">
+		    </form>
+		</div>
+	</div>
+
+
+    <div class="modal fade" id="Modalcadastro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" id="modalLink">
+        <div class="modal-content">
+          <div class="modal-header">
+						<h5 class="modal-title" id="tituloModal"></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          	<section id="formulario">
+	          	<input type="hidden" id="idCliente">
+	              <div class="form-group fontpadrao">
+	                <label for="nomeCliente">Nome</label>
+	                <input type="text" name="nomeDoCliente"class="form-control" id="nomeCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="nomeSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao">
+	                <label for="nomeCliente">E-mail</label>
+	                <input type="text" class="form-control" id="emailCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="emailSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao">
+		             <label for="nomeCliente">Telefone</label>
+		             <input type="text" class="form-control " id="telefoneCliente" aria-describedby="inp_nome_help" placeholder="(00)00000-0000" />
+		             <span style="display: none; color: red;" class="error" id="telefoneSpan">Campo Obrigatório</span>
+		          </div>
+		          <div class="form-group fontpadrao ">
+                	<label for="nomeCliente">Endereço</label>
+                	<input type="text" class="form-control" id="enderecoCliente" aria-describedby="inp_nome_help">
+                	<span style="display: none; color: red;" class="error" id="enderecoSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente ">Municipio</label>
+	                <input type="text" class="form-control" id="municipioCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="municipioSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente ">UF</label>
+	                <input type="text" class="form-control" id="ufCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="ufSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente ">CPF</label>
+	                <input type="text" class="form-control" id="cpfCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="cpfSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente ">CEP</label>
+	                <input type="text" class="form-control" id="cepCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="cepSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente ">Marca</label>
+	                <input type="text" class="form-control" id="marcaCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="marcaSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente ">Modelo</label>
+	                <input type="text" class="form-control" id="modeloCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="modeloSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente ">Ano Modelo</label>
+	                <input type="text" class="form-control" id="anoModeloCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="anoModeloSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente">Código Tabela FIPE</label>
+	                <input type="text" class="form-control" id="codigoTabelaFipeCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="codigoTabelaFipeSpan">Campo Obrigatório</span>
+	              </div>
+	              <div class="form-group fontpadrao ">
+	                <label for="nomeCliente">Valor Tabela FIPE</label>
+	                <input type="text" class="form-control" id="valorTabelaFipeCliente" aria-describedby="inp_nome_help">
+	                <span style="display: none; color: red;" class="error" id="valorTabelaFipeSpan">Campo Obrigatório</span>
+	              </div>
+		           <div>
+						<input type="checkbox" class="btn-check" id="ativar" name="ativo" autocomplete="off">
+						<label for="ativar" class="fontpadrao"  id="ativarText">Ativo</label>
+					</div>
+          			<button id="confirm" type="submit" class="btn btn-primary" onclick="salvaAtualizaCliente()">Confirmar</button>
+            </section>
+            <section id="feedbackSec" class="text-center fontpadrao" style="display: none;">
+            	<div class="form-group" id="feedback">
+	            	<label for="link" id="feedText" class="col-form-label link-url"></label>
+	            	<input type="text" disabled id="link" class="form-control">
+	            	<input type="hidden" id="telefoneCli" value="" class="telNumber">
+	            	<input type="hidden" id="nomeCli" value="" class="cliNome">
+	            	<button onclick="zapWeb()" class="btn btn-info mb-1 d-none d-md-inline">WhatsApp - Web</button>
+	            	<button onclick="zapApp()" class="btn btn-success mb-1">WhatsApp - App</button>
+            	</div>
+            </section>
+        </div>
+      </div>
+    </div>
+  </h2>
+<div class="modal fade" id="modalStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" id="modalStatusLink">
+    </div>
+    <div class="modal-dialog modal-xl" id="carregando">
+    <div class="modal-content">
+    <div class="modal-body text-center">
+    <div class="spinner-border text-primary" role="status">
+		  <span class="sr-only">Loading...</span>
+		</div>
+		</div>
+    </div>
+    </div>
+    </div>
+
+
+  <main>
+        <div class="container-xxl text-center"> 
+          <div class="row"></div>
+          <div class="table-responsive">
+            <table class="table" id="table">
+          	<thead class="table-secondary">
+	             <tr>
+	              <th scope="col">Nome</th>
+	              <th scope="col">E-mail</th>
+	              <th scope="col">Telefone</th>
+	              <th scope="col">Endereço</th>
+	              <th scope="col">Municipio</th>
+	              <th scope="col">UF</th>
+	              <th scope="col">CPF</th>
+	              <th scope="col">CEP</th>
+	              <th scope="col">Marca</th>
+	              <th scope="col">Modelo</th>
+	              <th scope="col">Ano Modelo</th>
+	              <th scope="col">Código Tabela FIPE</th>
+	              <th scope="col">Valor Tabela FIPE</th>
+	              <th scope="col">Ações</th>
+	              <th scope="col">Ativo
+	               <select onchange="filterTableAtivo(this)" class="form-control" id="ativoSelect">
+				      <option>S</option>
+				      <option>N</option>
+				      <option>T</option>
+				    </select>	
+	              </th>
+	            </tr>
+          	</thead>
+          <tbody id="tbody">
+            <tr class="conteudos" th:each="cliente : ${clientes}">
+            <input type="hidden" class="id-user">
+              <th id="nome" scope="row" th:text="${cliente.nome}"></th>
+              <td th:text="${cliente.email}"></td>
+              <td th:text="${cliente.telefone}"></td>
+              <td th:text="${cliente.endereco}"></td>
+              <td th:text="${cliente.municipio}"></td>
+              <td th:text="${cliente.uf}"></td>
+              <td th:text="${cliente.cpf}"></td>
+              <td th:text="${cliente.cep}"></td>
+              <td th:text="${cliente.marca}"></td>
+              <td th:text="${cliente.modelo}"></td>
+              <td th:text="${cliente.anoModelo}"></td>
+              <td th:text="${cliente.codigoTabelaFipe}"></td>
+              <td th:text="${cliente.valorTabelaFipe}"></td>
+              <td>
+                <span class="button__icon">
+                  <button type="button" th:id="${cliente.id+'editAct'}" th:attr="data-id=${cliente.id}" data-toggle="modal" data-target="#Modalcadastro" class="button" title="Editar">
+                  	<img src="/vo/img/EDIT.svg" alt="edit" width="35" height="35">
+                  </button>
+                  <button class="button" type="button" title="Progresso" th:attr="data-id=${cliente.id}" data-toggle="modal" data-target="#modalStatus">
+                  	<img src="/vo/img/percent.svg" alt="edit" width="35" height="35">
+                  </button>
+                </span>
+              </td>
+
+              <td>
+                <span class="button__icon">
+                  <button th:style="${cliente.ativo ? 'display:block':'display:none'}"th:onclick="'desativaCliente('+${cliente.id}+')'" id="desativa" class="button" title="Desativar"><img src="/vo/img/CHECK.JPG.svg" alt="edit" width="35" height="35"></button>
+	              <button th:style="${cliente.ativo ? 'display:none':'display:block'}"th:onclick="'ativarCliente('+${cliente.id}+')'" class="button" id="ativa" title="Ativar"><img src="/vo/img/X.svg" alt="edit" width="35" height="35"></button>
+                </span>
+            </td>
+            </tr>
+
+          </tbody>
+        </table>
+        </div>
+      </div>
+        </main>
+
+  
+    
+
+<div th:replace="~{base::scripts}"></div>
+<script type="text/javascript">
+
+var tbody = document.getElementById("tbody");
+
+var tr = tbody.childNodes;
+
+document.getElementById("search").addEventListener("keyup", function() {
+	$(".conteudos").each(function(index){
+		
+		if(!$("#search").val() || $("#search").val().length <= 0){
+			$(this).show();
+			
+		}
+		
+		if($(this).find("#nome").html().toLowerCase().indexOf($("#search").val().toLowerCase()) >= 0 &&(
+				($("#ativoSelect").val() == "T") || 
+				($("#ativoSelect").val() == "N" && $(this).find("#ativa:visible").length) && !$(this).find("#desativa:visible").length||
+				($("#ativoSelect").val() == "S" && $(this).find("#desativa:visible").length) && !$(this).find("#ativa:visible").length)
+				)
+			$(this).show();
+		else
+			$(this).hide();
+	});
+});
+
+
+$( document ).ready(function() {
+	var aux ={}
+	aux.value = $("#ativoSelect").val();
+	filterTableAtivo(aux);
+});
+
+function filterTableAtivo(select){
+	$(".conteudos").each(function(index){
+		$(this).show();
+		if(select.value == "S"){
+			if($(this).find("#ativa:visible").length)
+				$(this).hide();
+			if($(this).find("#desativa:visible").length)
+				$(this).show();
+		}
+		if(select.value == "N"){
+			if($(this).find("#ativa:visible").length)
+				$(this).show();
+			if($(this).find("#desativa:visible").length)
+				$(this).hide();
+		}
+		if(select.value == "T"){
+			$(this).show();
+		}
+	});
+}
+
+	
+function salvaAtualizaCliente(){
+	var cliente={};
+	if($('#idCliente').val())
+		cliente.id = $('#idCliente').val();
+	else
+		cliente.id = null;
+	
+	valida();
+	
+	
+	if($('.error:visible').length > 0)
+		return;
+	
+	cliente.nome = $('#nomeCliente').val();
+	cliente.email = $('#emailCliente').val();
+	cliente.telefone = $('#telefoneCliente').val();
+	cliente.ativo = $('#ativar').prop('checked');
+	cliente.endereco = $('#enderecoCliente').val();
+	cliente.municipio = $('#municipioCliente').val();
+	cliente.uf = $('#ufCliente').val();
+	cliente.cpf = $('#cpfCliente').val();
+	cliente.cep = $('#cepCliente').val();
+	cliente.marca = $('#marcaCliente').val();
+	cliente.modelo = $('#modeloCliente').val();
+	cliente.anoModelo = $('#anoModeloCliente').val();
+	cliente.codigoTabelaFipe = $('#codigoTabelaFipeCliente').val();
+	cliente.valorTabelaFipe = $('#valorTabelaFipeCliente').val();
+	
+	
+	var user = {'clientedto': cliente};
+	
+	if(cliente.id){
+		$.ajax({
+		    type: 'POST',
+		    url: '/cadastro/cliente/editar',
+		    data: JSON.stringify(cliente),
+		    success: function(data) {
+		    	$("#modalLink").addClass("modal-xl");
+		    	$('#formulario').hide();
+		    	$('#feedbackSec').show();
+		    	$('#feedText').text('CLIENTE EDITADO COM SUCESSO! Link:');
+		    	$('#link').val(data.conteudo.link);
+		    	$('#nomeCli').val(data.conteudo.nome);
+		    	$('#telefoneCli').val(data.conteudo.telefone);
+		    	
+		    },
+		    error: function (xhr, err) {
+		    	console.log(err);
+		    	var msg = 'Erro ao editar cliente!'
+		    	if(xhr.status == 424) msg = xhr.responseJSON.mensagem[0];
+		    	alert(msg);
+		    },
+		    contentType: "application/json"
+		});
+	}else{
+		$.ajax({
+		    type: 'POST',
+		    url: '/cadastro/cliente',
+		    data: JSON.stringify(cliente),
+		    success: function(data) {
+		    	$("#modalLink").addClass("modal-xl");
+		    	$('#formulario').hide();
+		    	$('#feedbackSec').show();
+		    	$('#feedText').text('CLIENTE CRIADO COM SUCESSO! Link:');
+		    	$('#link').val(data.conteudo.link);
+		    	$('#nomeCli').val(data.conteudo.nome);
+		    	$('#telefoneCli').val(data.conteudo.telefone);
+		    	
+		    },
+		    error: function (xhr, err) {
+		    	console.log(err);
+		    	var msg = 'Erro ao criar cliente!'
+			    	if(xhr.status == 424) msg = xhr.responseJSON.mensagem[0];
+			    	alert(msg);
+		    },
+		    contentType: "application/json"
+		});
+	}
+}
+
+$('#Modalcadastro').on('show.bs.modal', function (event) {
+	$("#modalLink").removeClass("modal-xl");
+	if($(event.relatedTarget)[0].id.indexOf('editAct') >= 0){
+		var a = $(event.relatedTarget)[0];
+		$('#tituloModal').text('Edição de Cliente');
+		$.ajax({
+		    type: 'GET',
+		    url: '/cadastro/cliente/editar/'+$(a).data("id"),
+		    success: function(data) { 
+		    	$('#idCliente').val(data.conteudo.id);
+				$('#emailCliente').val(data.conteudo.email);
+				$('#nomeCliente').val(data.conteudo.nome);
+				$('#telefoneCliente').val(data.conteudo.telefone);
+				$('#ativar').prop( "checked", data.conteudo.ativo);
+				$('#enderecoCliente').val(data.conteudo.endereco);
+				$('#municipioCliente').val(data.conteudo.municipio);
+				$('#ufCliente').val(data.conteudo.uf);
+				$('#cpfCliente').val(data.conteudo.cpf);
+				$('#cepCliente').val(data.conteudo.cep);
+				$('#marcaCliente').val(data.conteudo.marca);
+				$('#modeloCliente').val(data.conteudo.modelo);
+				$('#anoModeloCliente').val(data.conteudo.anoModelo);
+				$('#codigoTabelaFipeCliente').val(data.conteudo.codigoTabelaFipe);
+				$('#valorTabelaFipeCliente').val(data.conteudo.valorTabelaFipe);
+		    },
+		    error: function (err) {
+		    	console.log(err.mensagem[0]);
+		    	alert(err.mensagem[0]);
+		    },
+		    contentType: "application/json"
+		});
+	}else
+		$('#tituloModal').text('Cadastro de Cliente');
+});
+$('#modalStatus').on('show.bs.modal', function (event) {
+	
+	var a = $(event.relatedTarget)[0];
+	$("#carregando").show();
+	$( "#modalStatusLink" ).empty();
+	$( "#modalStatusLink" ).load( "/cadastro/cliente/progresso/"+$(a).data("id")+" .modal-content", function(){
+		$("#carregando").hide();
+	});
+});
+
+$('#Modalcadastro').on('hide.bs.modal', function (event) {
+	
+	$('#idCliente').val('');
+	$('#emailCliente').val('');
+	$('#nomeCliente').val('');
+	$('#telefoneCliente').val('');
+	$('#enderecoCliente').val('');
+	$('#municipioCliente').val('');
+	$('#ufCliente').val('');
+	$('#cpfCliente').val('');
+	$('#cepCliente').val('');
+	$('#marcaCliente').val('');
+	$('#modeloCliente').val('');
+	$('#anoModeloCliente').val('');
+	$('#codigoTabelaFipeCliente').val('');
+	$('#valorTabelaFipeCliente').val('');
+	$("#modalLink").removeClass("modal-xl");
+	document.location.reload(true);
+});
+
+
+function ativarCliente(id){
+	$.ajax({
+	    type: 'POST',
+	    url: '/cadastro/cliente/ativar/'+id ,
+	    success: function(data) {
+	    	$('#desativa').hide();
+	    	$('#ativa').show();
+	    	document.location.reload(true);
+	    },
+	    error: function (err) {
+	    	console.log(err.mensagem[0]);
+	    	alert(err.mensagem[0]);
+	    },
+	    contentType: "application/json"
+	});
+}
+
+function desativaCliente(id){
+	$.ajax({
+	    type: 'POST',
+	    url: '/cadastro/cliente/desativar/'+id ,
+	    success: function(data) { 
+	    	$('#ativa').hide();
+	    	$('#desativa').show();
+	    	document.location.reload(true);
+	    },
+	    error: function (err) {
+	    	console.log(err.mensagem[0]);
+	    	alert(err.mensagem[0]);
+	    },
+	    contentType: "application/json"
+	    
+	});
+}
+
+function zapWeb(nome, tel, link) {
+	if(!link){
+		link=$('#link').val();
+	}
+	if(!nome)
+		nome=$('.cliNome').val();
+	if(!tel)
+		tel=$('.telNumber').val();
+	
+	var msg = "Olá, "+nome+"\n\nAqui está o seu link para vistoria Group Car do seu carro:\n"+link;
+	msg = window.encodeURIComponent(msg);									
+	window.open('https://web.whatsapp.com/send?phone=+55' + tel + '&text=' + msg); 
+} 
+function zapApp(nome, tel, link) {
+	if(!link){
+		link=$('#link').val();
+	}
+	
+	if(!nome)
+		nome=$('.cliNome').val();
+	if(!tel)
+		tel=$('.telNumber').val();
+	
+	var msg = "Olá, "+nome+"\n\nAqui está o seu link para vistoria Group Car do seu carro:\n"+link;
+	msg = window.encodeURIComponent(msg);										
+	window.open('https://api.whatsapp.com/send?phone=+55' + tel + '&text=' + msg); 
+}
+function valida(){
+	var aux = $("#nomeCliente").val();
+	if(!aux || aux.trim().length == 0 ) $("#nomeSpan").show(); else $("#nomeSpan").hide()
+	aux = $("#emailCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#emailSpan").show(); else $("#emailSpan").hide()
+	aux = $("#telefoneCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#telefoneSpan").show(); else $("#telefoneSpan").hide()
+	aux = $("#enderecoCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#enderecoSpan").show(); else $("#enderecoSpan").hide()
+	aux = $("#municipioCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#municipioSpan").show(); else $("#municipioSpan").hide()
+	aux = $("#ufCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#ufSpan").show(); else $("#ufSpan").hide()
+	aux = $("#cpfCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#cpfSpan").show(); else $("#cpfSpan").hide()
+	aux = $("#cepCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#cepSpan").show(); else $("#cepSpan").hide()
+	aux = $("#marcaCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#marcaSpan").show(); else $("#marcaSpan").hide()
+	aux = $("#modeloCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#modeloSpan").show(); else $("#modeloSpan").hide()
+	aux = $("#anoModeloCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#anoModeloSpan").show(); else $("#anoModeloSpan").hide()
+	aux = $("#codigoTabelaFipeCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#codigoTabelaFipeSpan").show(); else $("#codigoTabelaFipeSpan").hide()
+	aux = $("#valorTabelaFipeCliente").val()
+	if(!aux || aux.trim().length == 0 ) $("#valorTabelaFipeSpan").show(); else $("#valorTabelaFipeSpan").hide()
+	
+	}
+</script>
+
+<script type="text/javascript">
+        function aprovar(id, e){
+        	e.preventDefault();
+        	$.ajax({
+        	    type: 'POST',
+        	    url: '/cadastro/cliente/imagem/4/'+id ,
+        	    success: function(data) { 
+        	    	$('#status'+id).text("Aprovado");
+        	    	$("#aprovacao"+id).remove();
+        	    },
+        	    error: function (err) {
+        	    	console.log(err);
+        	    	alert("Erro ao aprovar imagem, tente novamente!");
+        	    },
+        	    contentType: "application/json"
+        	});
+        }
+       	 function reprovar(id, e){
+       			e.preventDefault();
+            	$.ajax({
+            	    type: 'POST',
+            	    url: '/cadastro/cliente/imagem/3/'+id ,
+            	    success: function(data) { 
+            	    	$('#status'+id).text("Reprovado");
+            	    	$("#aprovacao"+id).remove();
+            	    	$("#img"+id).remove();
+            	    },
+            	    error: function (err) {
+            	    	console.log(err);
+            	    	alert("Erro ao aprovar imagem, tente novamente!");
+            	    },
+            	    contentType: "application/json"
+            	});
+       	 }
+        </script>
+</body>
+</html>
